@@ -19,12 +19,12 @@ export const goods = [
 export const App = () => {
   const [selectedGood, setSelectedGood] = useState(goods[8]);
 
-  const deleteGood = () => {
-    setSelectedGood("");
-  };
-
-  const addGood = (good) => {
-    setSelectedGood(good);
+  const handleGoodAction = (good) => {
+    if (good === selectedGood) {
+      setSelectedGood("");
+    } else {
+      setSelectedGood(good);
+    }
   };
 
   return (
@@ -37,7 +37,7 @@ export const App = () => {
               data-cy="ClearButton"
               type="button"
               className="delete ml-3"
-              onClick={deleteGood}
+              onClick={() => handleGoodAction("")}
             />
           )}
         </h1>
@@ -50,7 +50,6 @@ export const App = () => {
 
             return (
               <tr
-                id="selected"
                 key={good}
                 data-cy="Good"
                 className={classNames({
@@ -65,7 +64,7 @@ export const App = () => {
                       { "button is-info": isSelected },
                       { button: !isSelected },
                     )}
-                    onClick={isSelected ? deleteGood : () => addGood(good)}
+                    onClick={() => handleGoodAction(good)}
                   >
                     {isSelected ? "-" : "+"}
                   </button>
