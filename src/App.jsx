@@ -50,6 +50,7 @@ export const App = () => {
 
             return (
               <tr
+                id="selected"
                 key={good}
                 data-cy="Good"
                 className={classNames({
@@ -57,26 +58,16 @@ export const App = () => {
                 })}
               >
                 <td>
-                  {isSelected ? (
-                    <button
-                      data-cy="RemoveButton"
-                      type="button"
-                      className="button is-info"
-                      onClick={deleteGood}
-                    >
-                      -
-                    </button>
-                  ) : (
-                    <button
-                      data-cy="AddButton"
-                      type="button"
-                      className="button"
-                      onClick={() => addGood(good)}
-                    >
-                      +
-                    </button>
-                  )}
+                  <button
+                    data-cy={isSelected ? "RemoveButton" : "AddButton"}
+                    type="button"
+                    className={isSelected ? "button is-info" : "button"}
+                    onClick={isSelected ? deleteGood : () => addGood(good)}
+                  >
+                    {isSelected ? "-" : "+"}
+                  </button>
                 </td>
+
                 <td data-cy="GoodTitle" className="is-vcentered">
                   {good}
                 </td>
